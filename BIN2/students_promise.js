@@ -35,7 +35,7 @@ function mapStudents() {
         student.cours = cours;
         return student;
       });
-      return Promise.resolve(students);
+      return students;
     }
   );
 }
@@ -53,3 +53,20 @@ Promise.race([mapStudents(), new Promise(timer)])
   .catch(function () {
     console.log("Timeout");
   });
+
+// Implémentation partielle Promise
+function Promise(myFunction) {
+  let resolve, reject;
+
+  this.then = function (funcResolve, funcReject) {
+    resolve = funcResolve;
+    reject = funcReject;
+  };
+  this.catch = function (funcReject) {
+    reject = funcReject;
+  };
+
+  setTimeout(function () {
+    myFunction(resolve, reject);
+  }, 0);
+}

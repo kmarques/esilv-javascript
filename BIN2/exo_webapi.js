@@ -55,13 +55,24 @@ function Page1() {
   table.appendChild(tbody);
 
   const div = document.createElement("div");
-  const a = document.createElement("a");
-  a.href = "#/page2";
-  const aText = document.createTextNode("Page 2");
-  a.appendChild(aText);
-  div.appendChild(a);
+  div.appendChild(Link("Page2", "/page2"));
   div.appendChild(table);
   return div;
+}
+
+function Link(name, path) {
+  const a = document.createElement("a");
+  a.href = path;
+  const aText = document.createTextNode(name);
+  a.appendChild(aText);
+
+  a.addEventListener("click", function (event) {
+    event.preventDefault();
+    window.history.pushState({}, name, path);
+    HistoryRouter(root);
+  });
+
+  return a;
 }
 
 function Page2() {
@@ -70,11 +81,7 @@ function Page2() {
   h1.appendChild(text);
 
   const div = document.createElement("div");
-  const a = document.createElement("a");
-  a.href = "#/page1";
-  const aText = document.createTextNode("Page 1");
-  a.appendChild(aText);
-  div.appendChild(a);
+  div.appendChild(Link("Page1", "/page1"));
   div.appendChild(h1);
   return div;
 }
@@ -119,6 +126,10 @@ function HistoryRouter(rootElement) {
 
   if (rootElement.childNodes.length === 0) rootElement.appendChild(element);
   else rootElement.replaceChild(element, rootElement.childNodes[0]);
+
+  window.onpopstate = function () {
+    HistoryRouter(rootElement);
+  };
 }
 
 //HashRouter(document.getElementById("root"));

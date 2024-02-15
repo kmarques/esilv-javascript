@@ -1,11 +1,11 @@
 function NotAPersonError(object) {
-  // … Votre code vient ici
-
-  const instance = new Error(`Expected an instance of Person, got ${object}`);
-  instance.name = "MyError";
+  const instance = new Error(
+    `Expected an instance of Person, got ${object.__proto__.constructor.name}`
+  );
+  instance.name = "NotAPersonError";
   Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
   if (Error.captureStackTrace) {
-    Error.captureStackTrace(instance, MyError);
+    Error.captureStackTrace(instance, NotAPersonError);
   }
   return instance;
 }
@@ -15,9 +15,12 @@ function HolaWave() {
 
   this.addPerson = function addPerson(person) {
     if (person instanceof Person) {
+      if (person.name === "hacker") {
+        throw new Error("No hackers allowed");
+      }
       persons.push(person);
     } else {
-      throw new TypeError("Not a person");
+      throw new NotAPersonError(person);
     }
   };
 
@@ -46,10 +49,12 @@ function HolaWave() {
   };
 }
 
-function Person() {
+function Person(name) {
   //   _-_
   // \_/
   let handRaised = false;
+
+  this.name = name;
 
   this.setHandRaised = function setHandRaised(value) {
     handRaised = value;
@@ -65,5 +70,16 @@ function Person() {
 }
 
 const hola = new HolaWave();
-Array.from({ length: 50 }, () => hola.addPerson(new Person()));
-hola.start();
+try {
+  Array.from({ length: 50 }, (_, index) =>
+    hola.addPerson(new Person(index === 3 ? "hacker" : "Name-" + index))
+  );
+  hola.addPerson(new String("I am a robot"));
+} catch (error) {
+  if (error instanceof NotAPersonError)
+    console.error(error.name + ": ", error.message);
+  else throw error;
+}
+setTimeout(() => {
+  hola.start();
+}, 3000);

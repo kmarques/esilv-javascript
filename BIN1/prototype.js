@@ -1,3 +1,13 @@
+function CrashError(numSerie) {
+  const instance = new RangeError(`La voiture #${numSerie} a eu un accident`);
+  instance.name = "CrashError";
+  Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(instance, CrashError);
+  }
+  return instance;
+}
+
 function Voiture(numSerie, marque, model, kilometrage) {
   let state = "ready";
 
@@ -44,13 +54,13 @@ function Voiture(numSerie, marque, model, kilometrage) {
       case "911":
         if (toRun - kmRestant > 3000) {
           state = "accident";
-          throw new RangeError(`La voiture #${numSerie} a eu un accident`);
+          throw new CrashError(numSerie);
         }
         break;
       case "206":
         if (toRun - kmRestant > 1000) {
           state = "accident";
-          throw new RangeError(`La voiture #${numSerie} a eu un accident`);
+          throw new CrashError(numSerie);
         }
         break;
       default:

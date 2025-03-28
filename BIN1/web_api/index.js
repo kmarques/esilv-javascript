@@ -1,15 +1,15 @@
 const root = document.getElementById("root");
 const table = document.createElement("table");
 const tbody = document.createElement("tbody");
-table.appendChild(tbody);
-for (let row = 0; row < 5; row++) {
+for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
   const tr = document.createElement("tr");
-  tbody.appendChild(tr);
-  for (let col = 0; col < 5; col++) {
+  for (let colIndex = 0; colIndex < 5; colIndex++) {
     const td = document.createElement("td");
-    tr.appendChild(td);
     const text = document.createTextNode("Default");
     td.appendChild(text);
+    tr.appendChild(td);
   }
+  tbody.appendChild(tr);
 }
+table.appendChild(tbody);
 root.appendChild(table);

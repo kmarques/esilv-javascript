@@ -1,0 +1,17 @@
+export default [
+  ["Name", "Age", "City", "Country", "Occupation"],
+  ["John Doe", 30, "New York", "USA", "Engineer"],
+  ["Jane Smith", 25, "London", "UK", "Designer"],
+  ["Alice Johnson", 28, "Paris", "France", "Artist"],
+  ["Bob Brown", 35, "Berlin", "Germany", "Developer"],
+  ["Charlie Davis", 40, "Tokyo", "Japan", "Manager"],
+  ["Eve White", 22, "Sydney", "Australia", "Student"],
+  ["Frank Black", 45, "Toronto", "Canada", "Teacher"],
+  ["Grace Green", 32, "Rome", "Italy", "Chef"],
+  ["Hank Blue", 29, "Madrid", "Spain", "Photographer"],
+  ["Ivy Yellow", 27, "Amsterdam", "Netherlands", "Writer"],
+  ["Jack Red", 38, "Moscow", "Russia", "Scientist"],
+  ["Kathy Purple", 31, "Beijing", "China", "Nurse"],
+  ["Leo Orange", 26, "Rio de Janeiro", "Brazil", "Musician"],
+  ["Mia Pink", 33, "Dubai", "UAE", "Pilot"],
+];

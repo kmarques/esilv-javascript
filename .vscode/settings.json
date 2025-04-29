@@ -1,0 +1,21 @@
+{
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false,
+    "dockercompose": true,
+    "html": false,
+    "javascript": false,
+    "javascriptreact": false,
+    "mongodb": true,
+    "php": false,
+    "vue": true,
+    "yaml": true,
+    "json": true,
+    "twig": true,
+    "csv": true,
+    "github-actions-workflow": true,
+    "ansible": false
+  }
+}

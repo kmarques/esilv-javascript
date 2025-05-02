@@ -1,4 +1,6 @@
 export default function generateStructure(structure) {
+  if (typeof structure.type === "function")
+    return generateStructure(structure.type(structure.attributes));
   const element = document.createElement(structure.type);
   if (structure.attributes) {
     for (let attrName in structure.attributes) {

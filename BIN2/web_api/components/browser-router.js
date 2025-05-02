@@ -1,11 +1,17 @@
 import generateStructure from "../lib/generate-structure.js";
 
+let basePath;
+let browserRouterStarted = false;
+
 export default function BrowserRouter(routes, rootElement, options) {
-  const basePath = options.basePath || "";
+  basePath = options.basePath || "";
+  browserRouterStarted = true;
   function generatePage() {
     const path = location.pathname.slice(basePath.length);
     const struct = routes[path] ?? routes["*"];
-    const domPage = generateStructure(struct);
+    const domPage = generateStructure(
+      typeof struct === "function" ? struct() : struct
+    );
     if (rootElement.childNodes.length === 0) {
       rootElement.appendChild(domPage);
     } else {
@@ -19,11 +25,17 @@ export default function BrowserRouter(routes, rootElement, options) {
   window.addEventListener("pushstate", generatePage);
 }
 
-export function BrowserLink(link, title) {
+export function BrowserLink(props = {}) {
+  const title = props.title;
+  const link = props.link;
+
+  if (!browserRouterStarted)
+    throw new Error("BrowserLink must be used with a BrowserRouter");
+
   return {
     type: "a",
     attributes: {
-      href: `/BIN2/web_api${link}`,
+      href: `${basePath}${link}`,
     },
     events: [
       [

@@ -1,4 +1,8 @@
-export default function Card(imageSrc, title, onClick) {
+export default function Card(props = {}) {
+  const imageSrc = props.imageSrc;
+  const title = props.title;
+  const onClick = props.onClick;
+
   return {
     type: "div",
     attributes: {

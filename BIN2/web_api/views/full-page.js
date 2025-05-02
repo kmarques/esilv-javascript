@@ -3,5 +3,5 @@ import tablePage from "./table-page.js";
 
 export default {
   type: "div",
-  children: [galleryPage, tablePage],
+  children: [{ type: galleryPage }, tablePage],
 };

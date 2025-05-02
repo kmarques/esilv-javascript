@@ -27,7 +27,13 @@ export default {
   type: "div",
   children: [
     //HashLink("/gallery", "Page Gallery"),
-    BrowserLink("/gallery", "Page Gallery (Browser)"),
+    {
+      type: BrowserLink,
+      attributes: {
+        link: "/gallery",
+        title: "Page Gallery",
+      },
+    },
     {
       type: "table",
       children: [

@@ -13,7 +13,10 @@ function HashRouter(routes, rootElement) {
   window.addEventListener("hashchange", generatePage);
 }
 
-function HashLink(link, title) {
+function HashLink(props = {}) {
+  const link = props.link;
+  const title = props.title;
+
   return {
     type: "a",
     attributes: {

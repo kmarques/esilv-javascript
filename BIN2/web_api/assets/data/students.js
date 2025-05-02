@@ -1,35 +1,4 @@
-// <div class="flex gap-4">
-//     <img src="https://picsum.photos/200" />
-//     <span>Test</span>
-// </div>
-function onClick() {
-  alert("click");
-}
-
-const cardStructure = function (imageSrc, title) {
-  return {
-    type: "div",
-    attributes: {
-      class: "flex gap-4",
-      dataPosition: "0,1",
-    },
-    events: [["click", onClick]],
-    children: [
-      {
-        type: "img",
-        attributes: {
-          src: imageSrc,
-        },
-      },
-      {
-        type: "span",
-        children: [title],
-      },
-    ],
-  };
-};
-
-const students = [
+export default [
   {
     img: "https://www.leonard-de-vinci.net/student/avatars/cc99cb77fb97169230adf685c78e4c69",
     title: "Marwa BOUCHRIT",
@@ -131,46 +100,3 @@ const students = [
     title: "Joshua GUENNI",
   },
 ];
-
-const page = {
-  type: "div",
-  children: students.map((student, index) =>
-    cardStructure("https://picsum.photos/50?random=" + index, student.title)
-  ),
-};
-
-function generateStructure(structure) {
-  const element = document.createElement(structure.type);
-  if (structure.attributes) {
-    for (let attrName in structure.attributes) {
-      const attrValue = structure.attributes[attrName];
-      if (/^data[A-Z]/.test(attrName)) {
-        const datasetName = attrName.slice(4).toLowerCase();
-        element.dataset[datasetName] = attrValue;
-      } else element.setAttribute(attrName, attrValue);
-    }
-  }
-
-  if (structure.events) {
-    for (let item of structure.events) {
-      element.addEventListener(item[0], item[1]);
-    }
-  }
-
-  if (structure.children) {
-    for (let child of structure.children) {
-      if (typeof child === "string") {
-        element.appendChild(document.createTextNode(child));
-      }
-      if (typeof child === "object") {
-        const subElem = generateStructure(child);
-        element.appendChild(subElem);
-      }
-    }
-  }
-  return element;
-}
-
-const root = document.getElementById("root");
-
-root.appendChild(generateStructure(page));

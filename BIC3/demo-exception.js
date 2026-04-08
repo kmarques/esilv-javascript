@@ -1,7 +1,7 @@
-function InvalidStateError() {
+function InvalidStateError(currentState) {
   // … Votre code vient ici
 
-  const instance = new Error("Invalid state");
+  const instance = new Error("Invalid state: current state - " + currentState);
   instance.name = "InvalidStateError";
   Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
   if (Error.captureStackTrace) {
@@ -36,7 +36,7 @@ function Vehicule(immatriculation, color, brand, model) {
   };
   this.repair = function () {
     if (state === "BROKEN") state = "NORMAL";
-    else throw new InvalidStateError();
+    else throw new InvalidStateError(state);
   };
 
   this.display = function () {

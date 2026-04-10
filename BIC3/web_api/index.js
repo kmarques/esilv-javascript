@@ -42,7 +42,7 @@ function switchToInput(event) {
     td.replaceChild(textNode, input);
   });
 }
-
+////
 for (let i = 0; i < NB_ROWS; i++) {
   const tr = document.createElement("tr");
   tbody.appendChild(tr);

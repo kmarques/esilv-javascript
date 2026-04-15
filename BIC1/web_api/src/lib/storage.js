@@ -6,6 +6,9 @@ export function setStorageKey(key) {
 
 export function getData(defaultData) {
   const dataString = localStorage.getItem(STORAGE_KEY);
+  if (!dataString && defaultData) {
+    saveData(defaultData);
+  }
   return JSON.parse(dataString) || defaultData || [];
 }
 

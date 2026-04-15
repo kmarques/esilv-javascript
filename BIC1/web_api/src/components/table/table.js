@@ -15,7 +15,8 @@ export default function generateTable(data) {
 
   const tbody = document.createElement("tbody");
   table.appendChild(tbody);
-  for (let line of data) {
+  for (let rowIndex = 0; rowIndex < data.length; rowIndex++) {
+    const line = data[rowIndex];
     const tr = document.createElement("tr");
     tr.dataset.item = line;
     tbody.appendChild(tr);
@@ -25,6 +26,7 @@ export default function generateTable(data) {
       const textNode = document.createTextNode(value);
       td.appendChild(textNode);
       td.dataset.column = key;
+      td.dataset.row = rowIndex;
       td.addEventListener("click", switchToInput);
     }
   }

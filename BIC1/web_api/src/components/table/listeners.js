@@ -6,10 +6,9 @@ export function switchToText(event) {
   const textNode = document.createTextNode(text);
   const td = input.parentNode;
   const item = td.dataset.item;
-  let data = getData();
-  data = data.map((d) =>
-    d === item ? { ...d, [td.dataset.column]: text } : d,
-  );
+  const rowIndex = td.dataset.row;
+  const data = getData();
+  data[rowIndex] = { ...data[rowIndex], [td.dataset.column]: text };
   saveData(data);
   td.removeChild(input);
   td.appendChild(textNode);
